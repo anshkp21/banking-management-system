@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - SecureBank</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- 🔝 Header -->
+    <div class="header">
+        <div class="logo">🏦 Secure<span>Bank</span></div>
+        <nav>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/history">Transactions</a>
+            <a href="/api/balance">API</a>
+            <a href="/logout" style="color: #ffd700;">Logout</a>
+        </nav>
+    </div>
+    
+    <!-- 📦 Main Content -->
+    <div class="container">
+        <!-- 💰 Balance Card -->
+        <div class="card balance-card">
+            <h3>Available Balance</h3>
+            <div class="amount">₹{{ balance }}</div>
+            <div class="account">Account ID: {{ session.get('user_id', 'N/A') }}</div>
+        </div>
+        
+        <!-- 💳 Quick Actions -->
+        <div class="grid">
+            <!-- Deposit -->
+            <div class="card">
+                <h2>💰 Deposit Money</h2>
+                <form action="/deposit" method="POST">
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="number" name="amount" placeholder="Enter amount to deposit" required min="1">
+                    </div>
+                    <button type="submit" class="btn btn-success">Deposit Now</button>
+                </form>
+            </div>
+            
+            <!-- Withdraw -->
+            <div class="card">
+                <h2>💸 Withdraw Money</h2>
+                <form action="/withdraw" method="POST">
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="number" name="amount" placeholder="Enter amount to withdraw" required min="1">
+                    </div>
+                    <button type="submit" class="btn btn-danger">Withdraw Now</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- 📊 Recent Transactions Preview -->
+        <div class="card">
+            <h2>📊 Recent Transactions</h2>
+            <p style="color: #666; margin-bottom: 15px;">Your last 5 transactions</p>
+            <a href="/history" class="btn btn-primary" style="display: inline-block; width: auto;">View All Transactions →</a>
+        </div>
+    </div>
+    
+    <!-- 📱 Footer -->
+    <div class="footer">
+        © 2026 SecureBank. All rights reserved. | Built with Flask & Python
+    </div>
+</body>
+</html>

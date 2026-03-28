@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction History - SecureBank</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- 🔝 Header -->
+    <div class="header">
+        <div class="logo">🏦 Secure<span>Bank</span></div>
+        <nav>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/history">Transactions</a>
+            <a href="/api/balance">API</a>
+            <a href="/logout" style="color: #ffd700;">Logout</a>
+        </nav>
+    </div>
+    
+    <!-- 📦 Main Content -->
+    <div class="container">
+        <div class="card">
+            <h2>📊 Transaction History</h2>
+            <p style="color: #666; margin-bottom: 20px;">Complete record of all your transactions</p>
+            
+            {% if transactions %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for txn in transactions %}
+                    <tr>
+                        <td>{{ txn.timestamp.strftime('%d %b %Y, %I:%M %p') }}</td>
+                        <td class="{{ txn.type }}">{{ txn.type.upper() }}</td>
+                        <td class="{{ txn.type }}">₹{{ txn.amount }}</td>
+                        <td>{{ txn.description }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="text-align: center; color: #666; padding: 40px;">
+                No transactions yet. Start by making a deposit!
+            </p>
+            {% endif %}
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="/dashboard" class="btn btn-primary" style="display: inline-block; width: auto;">← Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 📱 Footer -->
+    <div class="footer">
+        © 2026 SecureBank. All rights reserved. | Built with Flask & Python
+    </div>
+</body>
+</html>
